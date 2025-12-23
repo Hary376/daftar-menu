@@ -3,106 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contoh Kode Python untuk Google Colab</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <title>Python Cafe - Brew Your Code</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,700;1,400&family=Fira+Code&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --coffee-dark: #2c1e12;
+            --coffee-medium: #4e342e;
+            --coffee-light: #d7ccc8;
+            --cream: #f5f5dc;
+            --accent: #bcaaa4;
+            --chalk: #ffffff;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
+            background-color: var(--coffee-dark);
+            /* Background tekstur kayu/meja kafe */
+            background-image: url('https://www.transparenttextures.com/patterns/dark-wood.png');
+            font-family: 'Poppins', sans-serif;
+            color: var(--cream);
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+        .cafe-container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 10px solid var(--coffee-medium);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-        h1 { color: #2c3e50; text-align: center; }
-        .code-header {
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px dashed var(--accent);
+            padding-bottom: 20px;
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--cream);
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .menu-board {
+            background: #1a1a1a; /* Warna papan tulis */
+            border: 15px solid #3d2b1f; /* Frame kayu */
+            border-radius: 10px;
+            position: relative;
+            box-shadow: inset 0 0 50px rgba(0,0,0,1);
+        }
+
+        .board-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #282c34;
-            color: white;
-            padding: 10px 20px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            margin-top: 20px;
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
+
+        .board-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--chalk);
+        }
+
         pre {
-            background: #1e1e1e;
-            color: #dcdcdc;
-            padding: 20px;
-            overflow-x: auto;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
+            margin: 0;
+            padding: 30px;
+            color: var(--chalk);
             font-family: 'Fira Code', monospace;
-            font-size: 14px;
-            margin-top: 0;
+            font-size: 15px;
+            line-height: 1.7;
+            overflow-x: auto;
+            /* Efek tulisan kapur sedikit blur */
+            text-shadow: 0 0 1px rgba(255,255,255,0.3);
         }
-        button {
-            background: #61afef;
-            border: none;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 4px;
+
+        /* Mewarnai sintaks Python manual ala kapur warna-warni */
+        .comment { color: #888; font-style: italic; }
+        .string { color: #a5d6a7; }
+        .keyword { color: #90caf9; font-weight: bold; }
+        .function { color: #fff59d; }
+
+        .btn-copy {
+            background: transparent;
+            border: 2px solid var(--chalk);
+            color: var(--chalk);
+            padding: 8px 20px;
+            border-radius: 30px;
             cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
             font-weight: 600;
         }
-        button:hover { background: #4a90e2; }
-        .footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: #777; }
+
+        .btn-copy:hover {
+            background: var(--chalk);
+            color: var(--coffee-dark);
+        }
+
+        .coffee-decoration {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Responsif */
+        @media (max-width: 600px) {
+            .logo { font-size: 2.5rem; }
+            .cafe-container { padding: 20px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🐍 Contoh Kode Python</h1>
-    <p>Salin kode di bawah ini untuk dijalankan di Google Colab atau Python lokal Anda.</p>
+<div class="cafe-container">
+    <header>
+        <p class="subtitle">EST. 2024</p>
+        <h1 class="logo">Python Coffee House</h1>
+        <p><i>"Brewing ideas, one line of code at a time"</i></p>
+    </header>
 
-    <div class="code-header">
-        <span>Python Code</span>
-        <button onclick="copyCode()">Copy Code</button>
-    </div>
+    <div class="menu-board">
+        <div class="board-header">
+            <span class="board-title">Today's Special: Basic Syntax</span>
+            <button class="btn-copy" onclick="copyCode()">Order Code (Copy)</button>
+        </div>
 <pre id="pythonCode">
-# --- CONTOH KODE PYTHON ---
+<span class="comment"># --- MENU SPESIAL HARI INI ---</span>
 
-# 1. Variabel
-nama_produk = "Kopi Susu"
-harga = 15000
-stok = 10
+<span class="keyword">def</span> <span class="function">buat_kopi</span>(nama):
+    <span class="keyword">print</span>(f<span class="string">"Sedang menyeduh {nama}..."</span>)
 
-# 2. List (Array)
-menu = ["Kopi Hitam", "Kopi Susu", "Teh Tarik"]
-menu.append("Matcha Latte")
+<span class="comment"># 1. Variabel (Pesanan)</span>
+menu_favorit = <span class="string">"Espresso Double Shot"</span>
+harga = <span class="string">15000</span>
+is_manis = <span class="keyword">False</span>
 
-# 3. Kondisi (If-Else)
-if stok > 0:
-    status = "Tersedia"
-else:
-    status = "Habis"
+<span class="comment"># 2. List (Stok Biji Kopi)</span>
+biji_kopi = [<span class="string">"Arabiaka"</span>, <span class="string">"Robusta"</span>, <span class="string">"Liberika"</span>]
 
-# 4. Looping
-print(f"Status {nama_produk}: {status}")
-print("Daftar Menu:")
-for item in menu:
-    print(f"- {item}")
+<span class="comment"># 3. Kondisi (Cek Ketersediaan)</span>
+<span class="keyword">if</span> harga < 20000:
+    rekomendasi = <span class="string">"Beli Sekarang!"</span>
+<span class="keyword">else</span>:
+    rekomendasi = <span class="string">"Cek Promo Nanti"</span>
+
+<span class="comment"># 4. Looping (Daftar Menu)</span>
+<span class="keyword">for</span> kopi <span class="keyword">in</span> biji_kopi:
+    <span class="function">buat_kopi</span>(kopi)
 </pre>
-
-    <div class="footer">
-        Dibuat untuk tutorial GitHub Pages & Google Colab
     </div>
+
+    <div class="coffee-decoration">
+        <span>☕</span>
+        <span>🥐</span>
+        <span>🍪</span>
+        <span>🍃</span>
+    </div>
+
+    <footer>
+        Open 24/7 for Debugging | Jakarta, Indonesia
+    </footer>
 </div>
 
 <script>
     function copyCode() {
+        // Mengambil teks asli tanpa tag HTML span
         const codeText = document.getElementById("pythonCode").innerText;
         navigator.clipboard.writeText(codeText).then(() => {
-            alert("Kode berhasil disalin!");
+            // Notifikasi ala kafe
+            const btn = document.querySelector('.btn-copy');
+            btn.innerText = "Order Ready! (Copied)";
+            btn.style.borderColor = "#a5d6a7";
+            
+            setTimeout(() => {
+                btn.innerText = "Order Code (Copy)";
+                btn.style.borderColor = "white";
+            }, 2000);
         });
     }
 </script>
