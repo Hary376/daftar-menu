@@ -3,146 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Kasir Kopi - Interactive Web</title>
+    <title>Aplikasi Kasir Kopi - Riwayat Penjualan</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 40px;
-            background-color: #f4f1ea;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .box {
-            border: 2px solid #6f4e37;
-            padding: 15px;
-            margin-top: 10px;
-            background-color: #fff;
-            min-height: 50px;
-            border-radius: 5px;
-            white-space: pre-wrap; /* Agar format teks/spasi terjaga */
-            font-family: 'Courier New', Courier, monospace;
-        }
-        button {
-            background-color: #6f4e37;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #4b3524;
-        }
-        input {
-            padding: 8px;
-            width: 80px;
-            margin: 5px 0;
-        }
-        select {
-            padding: 8px;
-            margin: 5px 0;
-        }
-        hr {
-            border: 0;
-            border-top: 1px solid #ddd;
-            margin: 20px 0;
-        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 40px; background-color: #f4f1ea; }
+        .container { max-width: 600px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .box { border: 2px solid #6f4e37; padding: 15px; margin-top: 10px; background-color: #fff; border-radius: 5px; white-space: pre-wrap; font-family: 'Courier New', monospace; }
+        .riwayat-box { border: 1px solid #ccc; padding: 10px; margin-top: 10px; background-color: #eee; font-size: 14px; }
+        button { background-color: #6f4e37; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; }
+        button:hover { background-color: #4b3524; }
+        input, select { padding: 8px; width: 100%; margin: 5px 0; box-sizing: border-box; }
+        hr { border: 0; border-top: 1px solid #ddd; margin: 20px 0; }
+        .success { color: green; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>☕ Kedai Kopi-Kopi Lite</h1>
-    <p>Pilih menu dan masukkan jumlah untuk simulasi kasir.</p>
+    <h1>☕ Kopi-Kopi Lite v2.0</h1>
+    
+    <div id="menuOutput" class="box"></div>
 
     <hr>
 
-    <h2>1. Daftar Menu & Stok</h2>
-    <button onclick="tampilkanMenu()">Cek Menu Terbaru</button>
-    <div id="menuOutput" class="box">Klik tombol untuk melihat menu...</div>
-
-    <hr>
-
-    <h2>2. Form Pesanan</h2>
-    <label for="pilihanKopi">Pilih Kopi:</label><br>
+    <h3>Buat Pesanan</h3>
+    <label>Pilih Menu:</label>
     <select id="pilihanKopi">
-        <option value="Kopi Hitam">Kopi Hitam (Rp10.000)</option>
-        <option value="Kopi Susu">Kopi Susu (Rp15.000)</option>
-        <option value="Matcha Latte">Matcha Latte (Rp20.000)</option>
+        <option value="Kopi Hitam">Kopi Hitam - Rp10.000</option>
+        <option value="Kopi Susu">Kopi Susu - Rp15.000</option>
+        <option value="Matcha Latte">Matcha Latte - Rp20.000</option>
     </select>
-    <br>
-    <label for="jumlahBeli">Jumlah:</label><br>
+    
+    <label>Jumlah Beli:</label>
     <input type="number" id="jumlahBeli" value="1" min="1">
-    <br>
-    <button onclick="prosesTransaksi()">Beli Sekarang</button>
+    
+    <button onclick="prosesTransaksi()">Konfirmasi Pembayaran</button>
+    <div id="transaksiOutput" class="box" style="display:none;"></div>
 
-    <div id="transaksiOutput" class="box">Status Transaksi...</div>
+    <hr>
+
+    <h3>📜 Riwayat Transaksi Hari Ini</h3>
+    <div id="riwayatOutput" class="riwayat-box">Belum ada transaksi.</div>
 </div>
 
 <script>
-/* Data Toko (Object dalam JS mirip Dictionary dalam Python)
-*/
-let menu_kopi = {
-    "Kopi Hitam": { harga: 10000, stok: 5 },
-    "Kopi Susu": { harga: 15000, stok: 10 },
-    "Matcha Latte": { harga: 20000, stok: 3 }
-};
+    // Data Utama
+    let menu_kopi = {
+        "Kopi Hitam": { harga: 10000, stok: 5 },
+        "Kopi Susu": { harga: 15000, stok: 10 },
+        "Matcha Latte": { harga: 20000, stok: 3 }
+    };
 
-// Fungsi 1: Menampilkan Menu (Iterasi/Looping)
-function tampilkanMenu() {
-    let output = "DAFTAR MENU & STOK:\n";
-    for (let produk in menu_kopi) {
-        let info = menu_kopi[produk];
-        output += `- ${produk.padEnd(15)} | Rp${info.harga.toLocaleString()} | Stok: ${info.stok}\n`;
-    }
-    document.getElementById("menuOutput").innerText = output;
-}
+    // Array untuk menampung riwayat (List di Python)
+    let daftarRiwayat = [];
 
-// Fungsi 2: Proses Transaksi (Kondisi If-Else & Operasi Matematika)
-function prosesTransaksi() {
-    let pesanan = document.getElementById("pilihanKopi").value;
-    let jumlah = parseInt(document.getElementById("jumlahBeli").value);
-    let outElement = document.getElementById("transaksiOutput");
-
-    // Validasi input angka (Try-Except logic di JS)
-    if (isNaN(jumlah) || jumlah <= 0) {
-        outElement.innerHTML = "<span style='color:red'>❌ Masukkan jumlah yang valid!</span>";
-        return;
+    function tampilkanMenu() {
+        let output = "STOK TERSEDIA:\n";
+        for (let produk in menu_kopi) {
+            output += `- ${produk.padEnd(15)} : ${menu_kopi[produk].stok} cup\n`;
+        }
+        document.getElementById("menuOutput").innerText = output;
     }
 
-    let stok_tersedia = menu_kopi[pesanan].stok;
-
-    // Logika Kondisi (If-Else)
-    if (jumlah <= stok_tersedia) {
-        let total_harga = jumlah * menu_kopi[pesanan].harga;
-
-        // Update Stok
-        menu_kopi[pesanan].stok -= jumlah;
-
-        outElement.innerHTML = `
---- STRUK PEMBAYARAN ---
-Item  : ${pesanan} x ${jumlah}
-Total : Rp${total_harga.toLocaleString()}
-------------------------
-✅ Pesanan Berhasil!
-Sisa stok ${pesanan}: ${menu_kopi[pesanan].stok}`;
+    function prosesTransaksi() {
+        let pesanan = document.getElementById("pilihanKopi").value;
+        let jumlah = parseInt(document.getElementById("jumlahBeli").value);
+        let outElement = document.getElementById("transaksiOutput");
         
-        // Refresh daftar menu secara otomatis
-        tampilkanMenu();
-    } else {
-        outElement.innerHTML = `<span style='color:red'>❌ Stok tidak cukup! (Tersedia: ${stok_tersedia})</span>`;
-    }
-}
+        let stok_tersedia = menu_kopi[pesanan].stok;
 
-// Jalankan fungsi menu saat pertama kali buka halaman
-tampilkanMenu();
+        if (jumlah > 0 && jumlah <= stok_tersedia) {
+            let total = jumlah * menu_kopi[pesanan].harga;
+            
+            // Update Stok
+            menu_kopi[pesanan].stok -= jumlah;
+            
+            // Tambahkan ke Riwayat (Metode .push() sama dengan .append() di Python)
+            let waktu = new Date().toLocaleTimeString();
+            daftarRiwayat.push(`${waktu} - ${pesanan} (${jumlah} cup) - Rp${total.toLocaleString()}`);
+
+            // Tampilkan Struk
+            outElement.style.display = "block";
+            outElement.innerHTML = `<span class="success">✅ BERHASIL!</span>\nTotal: Rp${total.toLocaleString()}`;
+            
+            tampilkanMenu();
+            updateRiwayat();
+        } else {
+            alert("Stok tidak mencukupi atau jumlah tidak valid!");
+        }
+    }
+
+    function updateRiwayat() {
+        let output = "";
+        if (daftarRiwayat.length === 0) {
+            output = "Belum ada transaksi.";
+        } else {
+            // Looping untuk menampilkan semua isi array riwayat
+            for (let i = 0; i < daftarRiwayat.length; i++) {
+                output += (i + 1) + ". " + daftarRiwayat[i] + "<br>";
+            }
+        }
+        document.getElementById("riwayatOutput").innerHTML = output;
+    }
+
+    // Inisialisasi awal
+    tampilkanMenu();
 </script>
 
 </body>
