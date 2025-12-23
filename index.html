@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Heaven - Python vs JS</title>
+    <title>Coffee Heaven - Python vs JS Brew</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
         :root {
-            --cafe-brown: #3d2b1f;
+            --dark-wood: #1a120b;
+            --medium-wood: #3c2a21;
             --cafe-tan: #d4a373;
             --cream: #f5f5dc;
             --chalk: #ffffff;
-            --dark-wood: #2c1e12;
         }
 
         body {
@@ -23,202 +23,495 @@
             min-height: 100vh;
         }
 
-        /* Sidebar Ala Daftar Menu Kafe */
+        /* SIDEBAR (Sesuai gambar referensi) */
         .sidebar {
-            width: 280px;
-            background: rgba(0, 0, 0, 0.6);
-            border-right: 4px double var(--cafe-tan);
+            width: 260px;
+            background: rgba(0, 0, 0, 0.5);
+            border-right: 2px solid var(--medium-wood);
             padding: 40px 20px;
-            box-shadow: 10px 0 20px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
         }
 
-        .logo-area {
+        .brand {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        .logo-area h2 {
+        .brand h2 {
             font-family: 'Dancing Script', cursive;
             color: var(--cafe-tan);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin: 0;
         }
 
-        .menu-category {
-            margin-top: 30px;
-        }
-
-        .menu-category p {
-            font-family: 'Playfair Display', serif;
+        .brand p {
             font-size: 0.7rem;
             letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-section { margin-bottom: 30px; }
+        
+        .nav-section label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.75rem;
             color: var(--cafe-tan);
             text-transform: uppercase;
-            border-bottom: 1px solid var(--cafe-tan);
-            padding-bottom: 5px;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 163, 115, 0.3);
         }
 
         .menu-btn {
             width: 100%;
             background: transparent;
             color: var(--cream);
-            border: 1px solid transparent;
-            padding: 12px;
-            margin: 5px 0;
-            border-radius: 8px;
-            cursor: pointer;
+            border: none;
+            padding: 12px 10px;
             text-align: left;
-            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
             transition: 0.3s;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .menu-btn:hover {
-            background: rgba(212, 163, 115, 0.2);
-            border-color: var(--cafe-tan);
-            padding-left: 20px;
+            background: var(--medium-wood);
+            color: var(--cafe-tan);
         }
 
-        /* Area Utama */
+        /* MAIN CONTENT */
         .main-content {
             flex-grow: 1;
-            padding: 50px;
+            padding: 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin: 0;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-        }
-
-        .tagline {
-            font-style: italic;
-            color: var(--cafe-tan);
+        .header-title {
+            text-align: center;
             margin-bottom: 40px;
         }
 
-        /* Papan Tulis Output */
-        .blackboard {
+        .header-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin: 0;
+        }
+
+        .header-title p {
+            color: var(--cafe-tan);
+            font-style: italic;
+        }
+
+        /* CHALKBOARD (Sesuai Gambar 2) */
+        .chalkboard-container {
             width: 100%;
-            max-width: 800px;
-            background: #1a1a1a;
-            border: 12px solid var(--cafe-brown);
+            max-width: 850px;
+            background: #1e1e1e;
+            border: 12px solid var(--medium-wood);
             border-radius: 15px;
-            padding: 40px;
-            box-shadow: inset 0 0 60px #000, 0 20px 40px rgba(0,0,0,0.6);
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
             position: relative;
         }
 
-        .blackboard-header {
+        .badge {
             position: absolute;
-            top: -20px;
+            top: -18px;
             right: 30px;
             background: var(--cafe-tan);
             color: var(--dark-wood);
-            padding: 5px 20px;
+            padding: 4px 15px;
             font-weight: bold;
-            border-radius: 4px;
             font-size: 0.8rem;
+            border-radius: 4px;
         }
 
-        #output {
+        #code-display {
             font-family: 'Fira Code', monospace;
-            color: var(--chalk);
             white-space: pre-wrap;
-            line-height: 1.8;
-            font-size: 1.05rem;
-            text-shadow: 0 0 2px rgba(255,255,255,0.3);
+            line-height: 1.6;
+            color: var(--chalk);
+            font-size: 1rem;
         }
 
         .btn-copy {
-            margin-top: 20px;
+            margin-top: 30px;
             background: var(--cafe-tan);
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
             color: var(--dark-wood);
-            font-weight: 600;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .btn-copy:hover {
-            transform: scale(1.05);
-            background: var(--cream);
-        }
+        .btn-copy:hover { transform: translateY(-3px); background: var(--cream); }
 
         footer {
             margin-top: auto;
-            color: var(--cafe-tan);
-            font-size: 0.8rem;
-            opacity: 0.6;
+            font-size: 0.75rem;
+            color: rgba(212, 163, 115, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="logo-area">
+    <aside class="sidebar">
+        <div class="brand">
             <h2>Coffee Heaven</h2>
             <p>Code Brew House</p>
         </div>
 
-        <div class="menu-category">
-            <p>Starter Menu</p>
-            <button class="menu-btn" onclick="showLogic('variabel')">☕ Variabel & Output</button>
-            <button class="menu-btn" onclick="showLogic('array')">📜 List / Array</button>
+        <div class="nav-section">
+            <label>Starter Menu</label>
+            <button class="menu-btn" onclick="updateBoard('variabel')">☕ Variabel & Output</button>
+            <button class="menu-btn" onclick="updateBoard('list')">📜 Array / List</button>
         </div>
 
-        <div class="menu-category">
-            <p>Main Course</p>
-            <button class="menu-btn" onclick="showLogic('kondisi')">⚖️ Kondisi (If-Else)</button>
-            <button class="menu-btn" onclick="showLogic('looping')">🔄 Looping (For)</button>
+        <div class="nav-section">
+            <label>Main Course</label>
+            <button class="menu-btn" onclick="updateBoard('kondisi')">⚖️ Kondisi (If-Else)</button>
+            <button class="menu-btn" onclick="updateBoard('looping')">🔄 Looping (For)</button>
         </div>
-    </div>
+    </aside>
 
-    <div class="main-content">
-        <header>
+    <main class="main-content">
+        <div class="header-title">
             <h1>Brewing Logic</h1>
-            <p class="tagline">Perbandingan Python & JavaScript dalam satu cangkir.</p>
-        </header>
-
-        <div class="blackboard">
-            <div class="blackboard-header">CHALKBOARD OUTPUT</div>
-            <div id="output">Silahkan pilih menu di samping untuk melihat keajaiban kode...</div>
+            <p>Perbandingan Python & JavaScript dalam satu cangkir.</p>
         </div>
 
-        <button class="btn-copy" onclick="copyContent()">Copy Current Logic</button>
+        <div class="chalkboard-container">
+            <div class="badge">CHALKBOARD OUTPUT</div>
+            <div id="code-display">Pilih menu untuk melihat resep kode...</div>
+        </div>
+
+        <button class="btn-copy" onclick="copyCode()">Copy Current Logic</button>
 
         <footer>
-            &copy; 2024 Coffee Heaven | Designed for GitHub Pages
+            © 2025 Coffee Heaven | Designed for GitHub Pages
         </footer>
-    </div>
+    </main>
 
     <script>
-        function showLogic(type) {
-            const out = document.getElementById("output");
-            let content = "";
+        const logicData = {
+            variabel: `[ PYTHON ]
+nama_produk = "Kopi Susu"
+harga = 15000
+print(f"Menu: {nama_produk}")
 
-            if(type === 'variabel') {
-                content = `[ PYTHON ]\nnama = "Kopi Susu"\nharga = 15000\nprint(f"Pesanan: {nama}")\n\n[ JAVASCRIPT ]\nlet nama = "Kopi Susu";\nconst harga = 15000;\nconsole.log("Pesanan: " + nama);`;
-            } else if(type === 'array') {
-                content = `[ PYTHON ]\nmenu = ["Latte", "Mocha"]\nmenu.append("Matcha")\n\n[ JAVASCRIPT ]\nlet menu = ["Latte", "Mocha"];\nmenu.push("Matcha");`;
-            } else if(type === 'kondisi') {
-                content = `[ PYTHON ]\nif stok > 0:\n    print("Tersedia")\nelse:\n    print("Habis")\n\n[ JAVASCRIPT ]\nif (stok > 0) {\n    console.log("Tersedia");\n} else {\n    console.log("Habis");\n}`;
-            } else if(type === 'looping') {
-                content = `[ PYTHON ]\nfor i in range(3):\n    print("Seduh...")\n\n[ JAVASCRIPT ]\nfor (let i = 0; i < 3; i++) {\n    console.log("Seduh...");\n}`;
-            }
+[ JAVASCRIPT ]
+let namaProduk = "Kopi Susu";
+const harga = 15000;
+console.log("Menu: " + namaProduk);`,
 
-            out.innerHTML = content;
+            list: `[ PYTHON ]
+menu = ["Kopi Hitam", "Kopi Susu"]
+menu.append("Matcha Latte")
+
+[ JAVASCRIPT ]
+let menu = ["Kopi Hitam", "Kopi Susu"];
+menu.push("Matcha Latte");`,
+
+            kondisi: `[ PYTHON ]
+if stok > 0:
+    status = "Tersedia"
+else:
+    status = "Habis"
+
+[ JAVASCRIPT ]
+if (stok > 0) {
+    status = "Tersedia";
+} else {
+    status = "Habis";
+}`,
+
+            looping: `[ PYTHON ]
+for item in menu:
+    print(f"- {item}")
+
+[ JAVASCRIPT ]
+menu.forEach(item => {
+    console.log("- " + item);
+});`
+        };
+
+        function updateBoard(key) {
+            document.getElementById('code-display').innerText = logicData[key];
         }
 
-        function copyContent() {
-            const text = document.getElementById("output").innerText;
+        function copyCode() {
+            const text = document.getElementById('code-display').innerText;
             navigator.clipboard.writeText(text).then(() => {
-                alert("Kode pesanan berhasil disalin!");
+                alert("Resep kode berhasil disalin ke clipboard!");
+            });
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Heaven - Python vs JS Brew</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-wood: #1a120b;
+            --medium-wood: #3c2a21;
+            --cafe-tan: #d4a373;
+            --cream: #f5f5dc;
+            --chalk: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-wood) url('https://www.transparenttextures.com/patterns/dark-wood.png');
+            color: var(--cream);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR (Sesuai gambar referensi) */
+        .sidebar {
+            width: 260px;
+            background: rgba(0, 0, 0, 0.5);
+            border-right: 2px solid var(--medium-wood);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .brand h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--cafe-tan);
+            font-size: 2.2rem;
+            margin: 0;
+        }
+
+        .brand p {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-section { margin-bottom: 30px; }
+        
+        .nav-section label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.75rem;
+            color: var(--cafe-tan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 163, 115, 0.3);
+        }
+
+        .menu-btn {
+            width: 100%;
+            background: transparent;
+            color: var(--cream);
+            border: none;
+            padding: 12px 10px;
+            text-align: left;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.3s;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-btn:hover {
+            background: var(--medium-wood);
+            color: var(--cafe-tan);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex-grow: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin: 0;
+        }
+
+        .header-title p {
+            color: var(--cafe-tan);
+            font-style: italic;
+        }
+
+        /* CHALKBOARD (Sesuai Gambar 2) */
+        .chalkboard-container {
+            width: 100%;
+            max-width: 850px;
+            background: #1e1e1e;
+            border: 12px solid var(--medium-wood);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: -18px;
+            right: 30px;
+            background: var(--cafe-tan);
+            color: var(--dark-wood);
+            padding: 4px 15px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+
+        #code-display {
+            font-family: 'Fira Code', monospace;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            color: var(--chalk);
+            font-size: 1rem;
+        }
+
+        .btn-copy {
+            margin-top: 30px;
+            background: var(--cafe-tan);
+            color: var(--dark-wood);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-copy:hover { transform: translateY(-3px); background: var(--cream); }
+
+        footer {
+            margin-top: auto;
+            font-size: 0.75rem;
+            color: rgba(212, 163, 115, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>Coffee Heaven</h2>
+            <p>Code Brew House</p>
+        </div>
+
+        <div class="nav-section">
+            <label>Starter Menu</label>
+            <button class="menu-btn" onclick="updateBoard('variabel')">☕ Variabel & Output</button>
+            <button class="menu-btn" onclick="updateBoard('list')">📜 Array / List</button>
+        </div>
+
+        <div class="nav-section">
+            <label>Main Course</label>
+            <button class="menu-btn" onclick="updateBoard('kondisi')">⚖️ Kondisi (If-Else)</button>
+            <button class="menu-btn" onclick="updateBoard('looping')">🔄 Looping (For)</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header-title">
+            <h1>Brewing Logic</h1>
+            <p>Perbandingan Python & JavaScript dalam satu cangkir.</p>
+        </div>
+
+        <div class="chalkboard-container">
+            <div class="badge">CHALKBOARD OUTPUT</div>
+            <div id="code-display">Pilih menu untuk melihat resep kode...</div>
+        </div>
+
+        <button class="btn-copy" onclick="copyCode()">Copy Current Logic</button>
+
+        <footer>
+            © 2025 Coffee Heaven | Designed for GitHub Pages
+        </footer>
+    </main>
+
+    <script>
+        const logicData = {
+            variabel: `[ PYTHON ]
+nama_produk = "Kopi Susu"
+harga = 15000
+print(f"Menu: {nama_produk}")
+
+[ JAVASCRIPT ]
+let namaProduk = "Kopi Susu";
+const harga = 15000;
+console.log("Menu: " + namaProduk);`,
+
+            list: `[ PYTHON ]
+menu = ["Kopi Hitam", "Kopi Susu"]
+menu.append("Matcha Latte")
+
+[ JAVASCRIPT ]
+let menu = ["Kopi Hitam", "Kopi Susu"];
+menu.push("Matcha Latte");`,
+
+            kondisi: `[ PYTHON ]
+if stok > 0:
+    status = "Tersedia"
+else:
+    status = "Habis"
+
+[ JAVASCRIPT ]
+if (stok > 0) {
+    status = "Tersedia";
+} else {
+    status = "Habis";
+}`,
+
+            looping: `[ PYTHON ]
+for item in menu:
+    print(f"- {item}")
+
+[ JAVASCRIPT ]
+menu.forEach(item => {
+    console.log("- " + item);
+});`
+        };
+
+        function updateBoard(key) {
+            document.getElementById('code-display').innerText = logicData[key];
+        }
+
+        function copyCode() {
+            const text = document.getElementById('code-display').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Resep kode berhasil disalin ke clipboard!");
             });
         }
     </script>
