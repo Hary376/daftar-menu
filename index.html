@@ -3,214 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Cafe - Brew Your Code</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,700;1,400&family=Fira+Code&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Coffee Heaven - Python vs JS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
         :root {
-            --coffee-dark: #2c1e12;
-            --coffee-medium: #4e342e;
-            --coffee-light: #d7ccc8;
+            --cafe-brown: #3d2b1f;
+            --cafe-tan: #d4a373;
             --cream: #f5f5dc;
-            --accent: #bcaaa4;
             --chalk: #ffffff;
+            --dark-wood: #2c1e12;
         }
 
         body {
-            background-color: var(--coffee-dark);
-            /* Background tekstur kayu/meja kafe */
-            background-image: url('https://www.transparenttextures.com/patterns/dark-wood.png');
             font-family: 'Poppins', sans-serif;
+            background: var(--dark-wood) url('https://www.transparenttextures.com/patterns/dark-wood.png');
             color: var(--cream);
             margin: 0;
-            padding: 20px;
             display: flex;
-            justify-content: center;
+            min-height: 100vh;
         }
 
-        .cafe-container {
-            max-width: 900px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 10px solid var(--coffee-medium);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        /* Sidebar Ala Daftar Menu Kafe */
+        .sidebar {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.6);
+            border-right: 4px double var(--cafe-tan);
+            padding: 40px 20px;
+            box-shadow: 10px 0 20px rgba(0,0,0,0.5);
         }
 
-        header {
+        .logo-area {
             text-align: center;
             margin-bottom: 40px;
-            border-bottom: 2px dashed var(--accent);
-            padding-bottom: 20px;
         }
 
-        .logo {
+        .logo-area h2 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            color: var(--cream);
+            color: var(--cafe-tan);
+            font-size: 2.5rem;
             margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        .subtitle {
+        .menu-category {
+            margin-top: 30px;
+        }
+
+        .menu-category p {
             font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            color: var(--accent);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--cafe-tan);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--cafe-tan);
+            padding-bottom: 5px;
         }
 
-        .menu-board {
-            background: #1a1a1a; /* Warna papan tulis */
-            border: 15px solid #3d2b1f; /* Frame kayu */
-            border-radius: 10px;
-            position: relative;
-            box-shadow: inset 0 0 50px rgba(0,0,0,1);
+        .menu-btn {
+            width: 100%;
+            background: transparent;
+            color: var(--cream);
+            border: 1px solid transparent;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.9rem;
+            transition: 0.3s;
         }
 
-        .board-header {
+        .menu-btn:hover {
+            background: rgba(212, 163, 115, 0.2);
+            border-color: var(--cafe-tan);
+            padding-left: 20px;
+        }
+
+        /* Area Utama */
+        .main-content {
+            flex-grow: 1;
+            padding: 50px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            padding: 15px 25px;
-            background: rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
-        .board-title {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
-            color: var(--chalk);
-        }
-
-        pre {
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
             margin: 0;
-            padding: 30px;
-            color: var(--chalk);
-            font-family: 'Fira Code', monospace;
-            font-size: 15px;
-            line-height: 1.7;
-            overflow-x: auto;
-            /* Efek tulisan kapur sedikit blur */
-            text-shadow: 0 0 1px rgba(255,255,255,0.3);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
 
-        /* Mewarnai sintaks Python manual ala kapur warna-warni */
-        .comment { color: #888; font-style: italic; }
-        .string { color: #a5d6a7; }
-        .keyword { color: #90caf9; font-weight: bold; }
-        .function { color: #fff59d; }
+        .tagline {
+            font-style: italic;
+            color: var(--cafe-tan);
+            margin-bottom: 40px;
+        }
+
+        /* Papan Tulis Output */
+        .blackboard {
+            width: 100%;
+            max-width: 800px;
+            background: #1a1a1a;
+            border: 12px solid var(--cafe-brown);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: inset 0 0 60px #000, 0 20px 40px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .blackboard-header {
+            position: absolute;
+            top: -20px;
+            right: 30px;
+            background: var(--cafe-tan);
+            color: var(--dark-wood);
+            padding: 5px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        #output {
+            font-family: 'Fira Code', monospace;
+            color: var(--chalk);
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            text-shadow: 0 0 2px rgba(255,255,255,0.3);
+        }
 
         .btn-copy {
-            background: transparent;
-            border: 2px solid var(--chalk);
-            color: var(--chalk);
-            padding: 8px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
+            margin-top: 20px;
+            background: var(--cafe-tan);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            color: var(--dark-wood);
             font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
         .btn-copy:hover {
-            background: var(--chalk);
-            color: var(--coffee-dark);
-        }
-
-        .coffee-decoration {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            font-size: 2rem;
-            opacity: 0.7;
+            transform: scale(1.05);
+            background: var(--cream);
         }
 
         footer {
-            text-align: center;
-            margin-top: 40px;
+            margin-top: auto;
+            color: var(--cafe-tan);
             font-size: 0.8rem;
-            color: var(--accent);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Responsif */
-        @media (max-width: 600px) {
-            .logo { font-size: 2.5rem; }
-            .cafe-container { padding: 20px; }
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
 
-<div class="cafe-container">
-    <header>
-        <p class="subtitle">EST. 2024</p>
-        <h1 class="logo">Python Coffee House</h1>
-        <p><i>"Brewing ideas, one line of code at a time"</i></p>
-    </header>
-
-    <div class="menu-board">
-        <div class="board-header">
-            <span class="board-title">Today's Special: Basic Syntax</span>
-            <button class="btn-copy" onclick="copyCode()">Order Code (Copy)</button>
+    <div class="sidebar">
+        <div class="logo-area">
+            <h2>Coffee Heaven</h2>
+            <p>Code Brew House</p>
         </div>
-<pre id="pythonCode">
-<span class="comment"># --- MENU SPESIAL HARI INI ---</span>
 
-<span class="keyword">def</span> <span class="function">buat_kopi</span>(nama):
-    <span class="keyword">print</span>(f<span class="string">"Sedang menyeduh {nama}..."</span>)
+        <div class="menu-category">
+            <p>Starter Menu</p>
+            <button class="menu-btn" onclick="showLogic('variabel')">☕ Variabel & Output</button>
+            <button class="menu-btn" onclick="showLogic('array')">📜 List / Array</button>
+        </div>
 
-<span class="comment"># 1. Variabel (Pesanan)</span>
-menu_favorit = <span class="string">"Espresso Double Shot"</span>
-harga = <span class="string">15000</span>
-is_manis = <span class="keyword">False</span>
-
-<span class="comment"># 2. List (Stok Biji Kopi)</span>
-biji_kopi = [<span class="string">"Arabiaka"</span>, <span class="string">"Robusta"</span>, <span class="string">"Liberika"</span>]
-
-<span class="comment"># 3. Kondisi (Cek Ketersediaan)</span>
-<span class="keyword">if</span> harga < 20000:
-    rekomendasi = <span class="string">"Beli Sekarang!"</span>
-<span class="keyword">else</span>:
-    rekomendasi = <span class="string">"Cek Promo Nanti"</span>
-
-<span class="comment"># 4. Looping (Daftar Menu)</span>
-<span class="keyword">for</span> kopi <span class="keyword">in</span> biji_kopi:
-    <span class="function">buat_kopi</span>(kopi)
-</pre>
+        <div class="menu-category">
+            <p>Main Course</p>
+            <button class="menu-btn" onclick="showLogic('kondisi')">⚖️ Kondisi (If-Else)</button>
+            <button class="menu-btn" onclick="showLogic('looping')">🔄 Looping (For)</button>
+        </div>
     </div>
 
-    <div class="coffee-decoration">
-        <span>☕</span>
-        <span>🥐</span>
-        <span>🍪</span>
-        <span>🍃</span>
+    <div class="main-content">
+        <header>
+            <h1>Brewing Logic</h1>
+            <p class="tagline">Perbandingan Python & JavaScript dalam satu cangkir.</p>
+        </header>
+
+        <div class="blackboard">
+            <div class="blackboard-header">CHALKBOARD OUTPUT</div>
+            <div id="output">Silahkan pilih menu di samping untuk melihat keajaiban kode...</div>
+        </div>
+
+        <button class="btn-copy" onclick="copyContent()">Copy Current Logic</button>
+
+        <footer>
+            &copy; 2024 Coffee Heaven | Designed for GitHub Pages
+        </footer>
     </div>
 
-    <footer>
-        Open 24/7 for Debugging | Jakarta, Indonesia
-    </footer>
-</div>
+    <script>
+        function showLogic(type) {
+            const out = document.getElementById("output");
+            let content = "";
 
-<script>
-    function copyCode() {
-        // Mengambil teks asli tanpa tag HTML span
-        const codeText = document.getElementById("pythonCode").innerText;
-        navigator.clipboard.writeText(codeText).then(() => {
-            // Notifikasi ala kafe
-            const btn = document.querySelector('.btn-copy');
-            btn.innerText = "Order Ready! (Copied)";
-            btn.style.borderColor = "#a5d6a7";
-            
-            setTimeout(() => {
-                btn.innerText = "Order Code (Copy)";
-                btn.style.borderColor = "white";
-            }, 2000);
-        });
-    }
-</script>
+            if(type === 'variabel') {
+                content = `[ PYTHON ]\nnama = "Kopi Susu"\nharga = 15000\nprint(f"Pesanan: {nama}")\n\n[ JAVASCRIPT ]\nlet nama = "Kopi Susu";\nconst harga = 15000;\nconsole.log("Pesanan: " + nama);`;
+            } else if(type === 'array') {
+                content = `[ PYTHON ]\nmenu = ["Latte", "Mocha"]\nmenu.append("Matcha")\n\n[ JAVASCRIPT ]\nlet menu = ["Latte", "Mocha"];\nmenu.push("Matcha");`;
+            } else if(type === 'kondisi') {
+                content = `[ PYTHON ]\nif stok > 0:\n    print("Tersedia")\nelse:\n    print("Habis")\n\n[ JAVASCRIPT ]\nif (stok > 0) {\n    console.log("Tersedia");\n} else {\n    console.log("Habis");\n}`;
+            } else if(type === 'looping') {
+                content = `[ PYTHON ]\nfor i in range(3):\n    print("Seduh...")\n\n[ JAVASCRIPT ]\nfor (let i = 0; i < 3; i++) {\n    console.log("Seduh...");\n}`;
+            }
 
+            out.innerHTML = content;
+        }
+
+        function copyContent() {
+            const text = document.getElementById("output").innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Kode pesanan berhasil disalin!");
+            });
+        }
+    </script>
 </body>
 </html>
