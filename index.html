@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contoh Kode Python untuk Google Colab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; text-align: center; }
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #282c34;
+            color: white;
+            padding: 10px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-top: 20px;
+        }
+        pre {
+            background: #1e1e1e;
+            color: #dcdcdc;
+            padding: 20px;
+            overflow-x: auto;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            margin-top: 0;
+        }
+        button {
+            background: #61afef;
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover { background: #4a90e2; }
+        .footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: #777; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🐍 Contoh Kode Python</h1>
+    <p>Salin kode di bawah ini untuk dijalankan di Google Colab atau Python lokal Anda.</p>
+
+    <div class="code-header">
+        <span>Python Code</span>
+        <button onclick="copyCode()">Copy Code</button>
+    </div>
+<pre id="pythonCode">
+# --- CONTOH KODE PYTHON ---
+
+# 1. Variabel
+nama_produk = "Kopi Susu"
+harga = 15000
+stok = 10
+
+# 2. List (Array)
+menu = ["Kopi Hitam", "Kopi Susu", "Teh Tarik"]
+menu.append("Matcha Latte")
+
+# 3. Kondisi (If-Else)
+if stok > 0:
+    status = "Tersedia"
+else:
+    status = "Habis"
+
+# 4. Looping
+print(f"Status {nama_produk}: {status}")
+print("Daftar Menu:")
+for item in menu:
+    print(f"- {item}")
+</pre>
+
+    <div class="footer">
+        Dibuat untuk tutorial GitHub Pages & Google Colab
+    </div>
+</div>
+
+<script>
+    function copyCode() {
+        const codeText = document.getElementById("pythonCode").innerText;
+        navigator.clipboard.writeText(codeText).then(() => {
+            alert("Kode berhasil disalin!");
+        });
+    }
+</script>
+
+</body>
+</html>
